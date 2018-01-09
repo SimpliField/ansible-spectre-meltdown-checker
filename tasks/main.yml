@@ -1,0 +1,21 @@
+---
+# tasks file for ansible-spectre-meltdown-checker
+- name: setup the script
+  copy:
+    src: spectre-meltdown-checker.sh
+    dest: /usr/local/bin/spectre-meltdown-checker
+    mode: 0755
+  tags:
+  - spectre
+  - meltdown
+
+- name: check for spectre/meltdown
+  command: spectre-meltdown-checker
+  register: spectre_meltdown_checker_result
+  failed_when: spectre_meltdown_checker_result.rc != 0
+  tags:
+  - spectre
+  - meltdown
+
+- debug:
+    var: spectre_meltdown_checker_result
