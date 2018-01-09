@@ -1,0 +1,16 @@
+---
+services:
+  - docker
+
+env:
+  matrix:
+    - DOCKER_IMAGE=sebastienelet/docker-ubuntu1404-ansible DOCKER_INIT=/sbin/init
+
+before_install:
+  - make docker-pull
+
+script:
+  - make test
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
