@@ -12,10 +12,9 @@
 - name: check for spectre/meltdown
   command: spectre-meltdown-checker
   register: spectre_meltdown_checker_result
+  changed_when: false
   failed_when: spectre_meltdown_checker_result.rc != 0
+  when: spectre_meltdown_check_disabled == true
   tags:
   - spectre
   - meltdown
-
-- debug:
-    var: spectre_meltdown_checker_result
